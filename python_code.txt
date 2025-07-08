@@ -1,0 +1,51 @@
+import serial
+import pyautogui
+import time
+import os
+
+# Open the serial port
+ser = serial.Serial('COM4', 9600)
+
+# Set the video file path (optional, if you want to open a video)
+video_path = "C:\\Users\\Lenovo\\Downloads\\Air Force One HD.mp4"
+
+# Check if the video file exists
+if os.path.exists(video_path):
+    # Open the video file using the default media player
+    os.startfile(video_path)
+else:
+    print("The video file does not exist.")
+
+while True:
+    # Check for serial commands from the Arduino board
+    if ser.in_waiting > 0:
+        command = ser.readline().decode().strip()
+        
+        # Handle the commands
+        if command == "play":
+            pyautogui.press('playpause')
+        elif command == "pause":
+            pyautogui.press('playpause')
+        elif command == "increase_volume":
+            pyautogui.press('volumeup')
+        elif command == "decrease_volume":
+            pyautogui.press('volumedown')
+        elif command == "rewind":
+            pyautogui.hotkey('ctrl', 'left')
+            pyautogui.hotkey('ctrl', 'left')
+            pyautogui.hotkey('ctrl', 'left')
+        elif command == "forward":
+            pyautogui.hotkey('ctrl', 'right')
+            pyautogui.hotkey('ctrl', 'right')
+            pyautogui.hotkey('ctrl', 'right')
+        elif command == "scroll_down":  # Changed to scroll down
+            pyautogui.scroll(-350)  # Scroll down
+        elif command == "scroll_up":  # Changed to scroll up
+            pyautogui.scroll(350)  # Scroll up
+        elif command == "blue_led_on":
+            print("Blue LED is on")
+        elif command == "red_led_on":
+            print("Red LED is on")
+    
+    # Delay to avoid overwhelming the serial buffer
+    time.sleep(0.1)

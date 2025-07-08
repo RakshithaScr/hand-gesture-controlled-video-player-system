@@ -1,0 +1,67 @@
+const int leftTrigPin = 2;
+const int leftEchoPin = 3;
+const int rightTrigPin = 4;
+const int rightEchoPin = 5;
+const int blueLEDPin = 8;
+const int redLEDPin = 9;
+
+void setup() {
+  pinMode(leftTrigPin, OUTPUT);
+  pinMode(leftEchoPin, INPUT);
+  pinMode(rightTrigPin, OUTPUT);
+  pinMode(rightEchoPin, INPUT);
+  pinMode(blueLEDPin, OUTPUT);
+  pinMode(redLEDPin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int leftDistance = calculateDistance(leftTrigPin, leftEchoPin);
+  int rightDistance = calculateDistance(rightTrigPin, rightEchoPin);
+
+  // Left Sensor actions
+  if (leftDistance >= 25 && leftDistance <= 35) {
+    Serial.println("play");
+  } else if (leftDistance > 1 && leftDistance <= 5) {
+    Serial.println("increase_volume");
+  } else if (leftDistance > 5 && leftDistance <= 10) {
+    Serial.println("rewind");
+  } else if (leftDistance > 10 && leftDistance <= 20) {
+    Serial.println("scroll_down");  // Changed to scroll down
+  } else if (leftDistance > 20 && leftDistance <= 25) {
+    Serial.println("blue_led_on");
+    digitalWrite(blueLEDPin, HIGH);
+  } else {
+    digitalWrite(blueLEDPin, LOW);
+  }
+
+  // Right Sensor actions
+  if (rightDistance >= 25 && rightDistance <= 35) {
+    Serial.println("pause");
+  } else if (rightDistance > 1 && rightDistance <= 5) {
+    Serial.println("decrease_volume");
+  } else if (rightDistance > 5 && rightDistance <= 10) {
+    Serial.println("forward");
+  } else if (rightDistance > 10 && rightDistance <= 20) {
+    Serial.println("scroll_up");  // Changed to scroll up
+  } else if (rightDistance > 20 && rightDistance <= 25) {
+    Serial.println("red_led_on");
+    digitalWrite(redLEDPin, HIGH);
+  } else {
+    digitalWrite(redLEDPin, LOW);
+  }
+
+  delay(1000);
+}
+
+// Function to calculate distance using ultrasonic sensor
+int calculateDistance(int trigPin, int echoPin) {
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  int duration = pulseIn(echoPin, HIGH);
+  int distance = duration * 0.034 / 2;
+  return distance;
+} 
