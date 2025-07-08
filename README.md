@@ -55,7 +55,7 @@ This project allows users to control a video player using simple **hand gestures
 ## 🛠️ Tools Used
 
 - **Arduino IDE** – Arduino code development and upload  
-- **VS Code / Notepad** – Python code editing  
+- **VS Code** – Python code editing  
 - **Tinkercad** – Circuit simulation (design only)  
 - **Windows Media Player** – Default video playback  
 - **Git & GitHub** – Version control and project hosting  
@@ -65,10 +65,10 @@ This project allows users to control a video player using simple **hand gestures
 ## 🚀 How to Run the Project
 
 ### 1. Upload Arduino Code
-- Open `gesture_control.ino` in the Arduino IDE  
+- Open the Arduino IDE  
 - Connect the Arduino Uno to your PC  
 - Select the correct COM port and board  
-- Upload the code
+- Upload the arduino_code
 
 ### 2. Connect the Hardware
 - **Left Sensor**: Trig → D2, Echo → D3  
@@ -78,10 +78,10 @@ This project allows users to control a video player using simple **hand gestures
 - Connect 5V and GND properly for all components
 
 ### 3. Run Python Script
-- Open `video_control.py`
+- Open VS Code
+- Upload the python_code
 - Make sure:
   - The correct **COM port** (e.g. `COM4`) is set
-  - The `video_path` points to a real `.mp4` video
 - Run the script using:
 ```bash
 python video_control.py
